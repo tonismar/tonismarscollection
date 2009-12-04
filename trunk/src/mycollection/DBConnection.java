@@ -21,7 +21,7 @@ public class DBConnection {
 
     public DBConnection() throws SQLException, ClassNotFoundException {
         Class.forName("org.apache.derby.jdbc.ClientDriver");
-        this.conn = DriverManager.getConnection("jdbc:derby://localhost:1527/MyConnection");
+        this.conn = DriverManager.getConnection("jdbc:derby://localhost:1527/MyCollection");
         this.stm = this.conn.createStatement();
     }
 

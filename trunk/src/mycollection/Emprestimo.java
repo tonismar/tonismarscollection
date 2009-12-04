@@ -32,15 +32,15 @@ public class Emprestimo extends javax.swing.JFrame {
     private void initComponents() {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        MyConnectionPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MyConnectionPU").createEntityManager();
-        itensQuery = java.beans.Beans.isDesignTime() ? null : MyConnectionPUEntityManager.createQuery("SELECT i FROM Itens i");
+        MyCollectionPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MyCollectionPU").createEntityManager();
+        itensQuery = java.beans.Beans.isDesignTime() ? null : MyCollectionPUEntityManager.createQuery("SELECT i FROM Itens i");
         itensList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : itensQuery.getResultList();
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(mycollection.MyCollectionApp.class).getContext().getResourceMap(Emprestimo.class);
@@ -64,6 +64,8 @@ public class Emprestimo extends javax.swing.JFrame {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getColumn(0).setHeaderValue(resourceMap.getString("jTable1.columnModel.title0")); // NOI18N
+        jTable1.getColumnModel().getColumn(1).setHeaderValue(resourceMap.getString("jTable1.columnModel.title1")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -99,16 +101,16 @@ public class Emprestimo extends javax.swing.JFrame {
     /**
     * @param args the command line arguments
     */
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Emprestimo().setVisible(true);
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.persistence.EntityManager MyConnectionPUEntityManager;
+    private javax.persistence.EntityManager MyCollectionPUEntityManager;
     private java.util.List<mycollection.Itens> itensList;
     private javax.persistence.Query itensQuery;
     private javax.swing.JLabel jLabel1;
