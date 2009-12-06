@@ -10,4 +10,14 @@
       <property name="toplink.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
     </properties>
   </persistence-unit>
+  <persistence-unit name="MyCollectionPU" transaction-type="RESOURCE_LOCAL">
+    <provider>oracle.toplink.essentials.PersistenceProvider</provider>
+    <class>mycollection.Itens</class>
+    <properties>
+      <property name="toplink.jdbc.user" value="app"/>
+      <property name="toplink.jdbc.password" value="app"/>
+      <property name="toplink.jdbc.url" value="jdbc:derby://localhost:1527/MyCollection"/>
+      <property name="toplink.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+    </properties>
+  </persistence-unit>
 </persistence>
