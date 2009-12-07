@@ -138,7 +138,7 @@ public class Emprestimo extends javax.swing.JFrame {
         modelo.addColumn("tipo");
         modelo.addColumn("nome");
         this.jTable1.setModel(modelo);
-        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+        //if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
             try {
                 System.out.println("Teclei ENTER.");
                 imodel.setNome(this.txtNome.getText());
@@ -154,7 +154,7 @@ public class Emprestimo extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Emprestimo.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        //}
     }//GEN-LAST:event_txtNomeKeyPressed
 
     
