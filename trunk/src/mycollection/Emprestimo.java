@@ -11,11 +11,23 @@
 
 package mycollection;
 
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author tonismar
  */
 public class Emprestimo extends javax.swing.JFrame {
+
+    private ItemModel imodel;
+    private ResultSet rs;
 
     /** Creates new form Emprestimo */
     public Emprestimo() {
@@ -35,8 +47,6 @@ public class Emprestimo extends javax.swing.JFrame {
         MyCollectionPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MyCollectionPU").createEntityManager();
         itensQuery = java.beans.Beans.isDesignTime() ? null : MyCollectionPUEntityManager.createQuery("SELECT i FROM Itens i");
         itensList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : itensQuery.getResultList();
-        itensQuery1 = java.beans.Beans.isDesignTime() ? null : MyCollectionPUEntityManager.createQuery("SELECT i FROM Itens i");
-        itensList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : itensQuery1.getResultList();
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -53,12 +63,17 @@ public class Emprestimo extends javax.swing.JFrame {
 
         txtNome.setText(resourceMap.getString("txtNome.text")); // NOI18N
         txtNome.setName("txtNome"); // NOI18N
+        txtNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNomeKeyPressed(evt);
+            }
+        });
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
         jTable1.setName("jTable1"); // NOI18N
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, itensList1, jTable1);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, itensList, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tipo}"));
         columnBinding.setColumnName("Tipo");
         columnBinding.setColumnClass(String.class);
@@ -116,23 +131,37 @@ public class Emprestimo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-    * @param args the command line arguments
-    */
-    /*public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Emprestimo().setVisible(true);
+    private void txtNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomeKeyPressed
+        // TODO add your handling code here:
+        imodel = new ItemModel();
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("tipo");
+        modelo.addColumn("nome");
+        this.jTable1.setModel(modelo);
+        if( evt.getKeyCode() == KeyEvent.VK_ENTER ){
+            try {
+                System.out.println("Teclei ENTER.");
+                imodel.setNome(this.txtNome.getText());
+                rs = imodel.find();
+                ResultSetMetaData rsma = rs.getMetaData();
+                while(rs.next()) {
+                    Object row[] = new Object[rsma.getColumnCount()];
+                    for(int x=1; x<=rsma.getColumnCount(); x++){
+                        row[x-1] = rs.getString(rsma.getColumnName(x));
+                    }
+                    modelo.addRow(row);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Emprestimo.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
-    }*/
+        }
+    }//GEN-LAST:event_txtNomeKeyPressed
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager MyCollectionPUEntityManager;
     private java.util.List<mycollection.Itens> itensList;
-    private java.util.List<mycollection.Itens> itensList1;
     private javax.persistence.Query itensQuery;
-    private javax.persistence.Query itensQuery1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
