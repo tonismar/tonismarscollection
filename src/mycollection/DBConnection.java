@@ -16,8 +16,8 @@ import java.sql.SQLException;
  */
 public class DBConnection {
 
-    private Connection conn;
-    private Statement stm;
+    public Connection conn;
+    public Statement stm;
 
     public DBConnection() throws SQLException, ClassNotFoundException {
         Class.forName("org.apache.derby.jdbc.ClientDriver");

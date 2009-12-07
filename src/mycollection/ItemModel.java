@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.derby.client.am.Statement40;
 
 /**
  *
@@ -23,8 +22,6 @@ public class ItemModel {
     private String descricao;
     private Exception e;
     private DBConnection resource;
-    private ResultSet rs;
-    private Statement stm;
 
     public ItemModel() {
         try {
@@ -106,13 +103,15 @@ public class ItemModel {
     }
 
     public ResultSet find() {
+        ResultSet rs = null;
+        Statement stm = this.resource.stm;
         String query = "Select tipo, nome from itens where nome like '%" + this.getNome() + "%'";
         try {
-            this.rs = this.stm.executeQuery(query);
+            rs = stm.executeQuery(query);
         } catch (SQLException ex) {
             Logger.getLogger(ItemModel.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return this.rs;
+        return rs;
     }
 
 }
