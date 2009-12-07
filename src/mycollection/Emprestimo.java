@@ -35,6 +35,8 @@ public class Emprestimo extends javax.swing.JFrame {
         MyCollectionPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MyCollectionPU").createEntityManager();
         itensQuery = java.beans.Beans.isDesignTime() ? null : MyCollectionPUEntityManager.createQuery("SELECT i FROM Itens i");
         itensList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : itensQuery.getResultList();
+        itensQuery1 = java.beans.Beans.isDesignTime() ? null : MyCollectionPUEntityManager.createQuery("SELECT i FROM Itens i");
+        itensList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : itensQuery1.getResultList();
         jLabel1 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -54,7 +56,7 @@ public class Emprestimo extends javax.swing.JFrame {
 
         jTable1.setName("jTable1"); // NOI18N
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, itensList, jTable1);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, itensList1, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tipo}"));
         columnBinding.setColumnName("Tipo");
         columnBinding.setColumnClass(String.class);
@@ -112,7 +114,9 @@ public class Emprestimo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager MyCollectionPUEntityManager;
     private java.util.List<mycollection.Itens> itensList;
+    private java.util.List<mycollection.Itens> itensList1;
     private javax.persistence.Query itensQuery;
+    private javax.persistence.Query itensQuery1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

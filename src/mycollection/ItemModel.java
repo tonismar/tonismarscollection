@@ -5,9 +5,12 @@
 
 package mycollection;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.derby.client.am.Statement40;
 
 /**
  *
@@ -20,6 +23,8 @@ public class ItemModel {
     private String descricao;
     private Exception e;
     private DBConnection resource;
+    private ResultSet rs;
+    private Statement stm;
 
     public ItemModel() {
         try {
@@ -98,6 +103,16 @@ public class ItemModel {
     public void add(){
         String query = "INSERT INTO itens VALUES ('" + this.getNome() + "','" + this.getTipo() + "','" + this.getVolume() + "','" + this.getDescricao() + "')";
         resource.executeSQL(query);
+    }
+
+    public ResultSet find() {
+        String query = "Select tipo, nome from itens where nome like '%" + this.getNome() + "%'";
+        try {
+            this.rs = this.stm.executeQuery(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return this.rs;
     }
 
 }
