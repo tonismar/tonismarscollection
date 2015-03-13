@@ -1,0 +1,1 @@
+I've always forget with whom are my things, books, dvd. So I created this application to manager this things.
